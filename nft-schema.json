@@ -1,0 +1,144 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "info": {"$ref": "#/definitions/info_type"},
+        "item": {"$ref": "#/definitions/item2_type"},
+        "event": {"$ref": "#/definitions/event_type"},
+        "protocolProfileBehavior": {"$ref": "#/definitions/raw_type"}
+    },
+    "definitions": {
+        "info_type": {
+            "type": "object",
+            "properties": {
+                "_postman_id": {"type": "string"},
+                "name": {"type": "string"},
+                "description": {"type": "string"},
+                "schema": {"type": "string"}
+            }
+        },
+        "exec_type": {
+            "type": "array",
+            "minItems": 0,
+            "items": {"type": "string"}
+        },
+        "script_type": {
+            "type": "object",
+            "properties": {
+                "id": {"type": "string"},
+                "type": {"type": "string"},
+                "exec": {"$ref": "#/definitions/exec_type"}
+            }
+        },
+        "event_type": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "listen": {"type": "string"},
+                    "script": {"$ref": "#/definitions/script_type"}
+                },
+                "required": [
+                    "listen",
+                    "script"
+                ]
+            }
+        },
+        "header_type": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "key": {"type": "string"},
+                    "value": {"type": "string"}
+                },
+                "required": [
+                    "value",
+                    "key"
+                ]
+            }
+        },
+        "url_type": {
+            "type": "object",
+            "properties": {
+                "raw": {"type": "string"},
+                "host": {"$ref": "#/definitions/exec_type"},
+                "port": {"type": "string"},
+                "path": {"$ref": "#/definitions/exec_type"},
+                "query": {"$ref": "#/definitions/header_type"}
+            }
+        },
+        "raw_type": {
+            "type": "object",
+            "properties": {}
+        },
+        "options_type": {
+            "type": "object",
+            "properties": {
+                "raw": {"$ref": "#/definitions/raw_type"}
+            }
+        },
+        "body_type": {
+            "type": "object",
+            "properties": {
+                "mode": {"type": "string"},
+                "raw": {"type": "string"},
+                "options": {"$ref": "#/definitions/options_type"}
+            }
+        },
+        "request_type": {
+            "type": "object",
+            "properties": {
+                "method": {"type": "string"},
+                "header": {"$ref": "#/definitions/header_type"},
+                "url": {"$ref": "#/definitions/url_type"},
+                "description": {"type": "string"},
+                "body": {"$ref": "#/definitions/body_type"}
+            }
+        },
+        "response_type": {
+            "type": "array",
+            "minItems": 0
+        },
+        "item_type": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "event": {"$ref": "#/definitions/event_type"},
+                    "request": {"$ref": "#/definitions/request_type"},
+                    "response": {"$ref": "#/definitions/response_type"}
+                },
+                "required": [
+                    "request",
+                    "response",
+                    "name",
+                    "event"
+                ]
+            }
+        },
+        "item2_type": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string"},
+                    "item": {"$ref": "#/definitions/item_type"},
+                    "description": {"type": "string"},
+                    "protocolProfileBehavior": {"$ref": "#/definitions/raw_type"}
+                },
+                "required": [
+                    "protocolProfileBehavior",
+                    "item",
+                    "name",
+                    "description"
+                ]
+            }
+        }
+    }
+}
